@@ -41,7 +41,7 @@ export default function BirthdayIntro({ goTo }) {
         </div>
 
         <div style={{ fontSize: 'clamp(1.5rem, 5vw, 2.3rem)', fontWeight: 300, letterSpacing: '4px', color: 'rgba(255,255,255,0.92)', marginBottom: '12px' }}>
-          致我亲爱的大学同学
+          To CC
         </div>
         <div style={{ fontSize: 'clamp(1rem, 3vw, 1.2rem)', fontWeight: 300, letterSpacing: '2px', color: 'rgba(255,255,255,0.65)', marginBottom: '52px' }}>
           愿无忧无虑，万事胜意
@@ -65,20 +65,10 @@ export default function BirthdayIntro({ goTo }) {
             fontFamily: 'inherit'
           }}
         >
-          进入我们的回忆
+          进入回忆
         </motion.button>
       </motion.div>
 
-      {/* 底部滚动提示 */}
-      <div style={{ position: 'absolute', bottom: '36px', left: 0, right: 0, textAlign: 'center', zIndex: 2 }}>
-        <motion.div
-          animate={{ opacity: [0.4, 1, 0.4], y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem', letterSpacing: '2px' }}
-        >
-          SCROLL TO BEGIN
-        </motion.div>
-      </div>
     </div>
   );
 }

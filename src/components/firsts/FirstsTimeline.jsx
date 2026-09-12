@@ -595,7 +595,7 @@ export default function FirstsTimeline() {
                                         background: 'linear-gradient(135deg, #fff, #F6BEC8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
                                         textShadow: '0 0 40px rgba(246, 190, 200, 0.5)'
                                     }}>
-                                        FIRSTS
+                                        里程碑记录
                                     </h1>
                                 </motion.div>
                             )}
@@ -610,7 +610,7 @@ export default function FirstsTimeline() {
                                     transition={{ duration: 1, delay: 1 }}
                                     style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.7)', letterSpacing: '4px', marginTop: '40px', fontWeight: 300 }}
                                 >
-                                    每一个第一次，都是我们的里程碑
+                                    每一个脚印，都是我们的里程碑
                                 </motion.p>
                             )}
                         </AnimatePresence>
@@ -653,7 +653,7 @@ export default function FirstsTimeline() {
                                             textTransform: 'uppercase', transition: 'all 0.3s ease'
                                         }}
                                     >
-                                        录入第一次
+                                        记录里程碑
                                     </motion.button>
                                 </motion.div>
                             )}
@@ -669,7 +669,7 @@ export default function FirstsTimeline() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8 }}
                         >
-                            FIRSTS
+                            里程碑记录
                         </motion.h1>
                         <motion.p
                             className="firsts-subtitle"
@@ -677,7 +677,7 @@ export default function FirstsTimeline() {
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.3, duration: 0.6 }}
                         >
-                            每一个第一次，都是我们的里程碑
+                            每一个脚印，都是我们的里程碑
                         </motion.p>
                         <motion.div
                             className="firsts-count"
@@ -685,7 +685,7 @@ export default function FirstsTimeline() {
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: 0.5, duration: 0.5 }}
                         >
-                            已记录 {totalCount} 个第一次
+                            已记录 {totalCount} 个里程碑
                         </motion.div>
                     </div>
 
@@ -766,7 +766,7 @@ export default function FirstsTimeline() {
                             <h3 className="gallery-title">回忆画廊</h3>
                             <div className="gallery-masonry">
                                 {allImages.length === 0 ? (
-                                    <div className="gallery-empty">照片都被藏起来了哦，自己去上传试试吧～</div>
+                                    <div className="gallery-empty">照片还在路上，等我们一起填满回忆～</div>
                                 ) : (
                                     <>
                                         <div className="gallery-column">
@@ -838,7 +838,7 @@ export default function FirstsTimeline() {
                             }}
                         >
                             <div className="firsts-modal-header">
-                                <h2>{editingId ? '编辑第一次' : '记录新的第一次'} ✨</h2>
+                                <h2>{editingId ? '编辑里程碑' : '记录新的里程碑'} ✨</h2>
                                 <div className="camera-btn-wrapper" onClick={(e) => e.stopPropagation()}>
                                     <button
                                         type="button"

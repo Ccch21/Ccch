@@ -211,7 +211,7 @@ export default function PinkAnimationHome({ goTo, goToCity, isCityMode = false, 
                     textShadow: '0 0 12px rgba(255,255,255,0.15)'
                 }}
             >
-                一路向哪？
+                故事仍在继续
             </div>
 
             {/* Globe */}

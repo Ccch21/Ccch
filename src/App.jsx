@@ -13,7 +13,6 @@ export default function App() {
   const [selectedCity, setSelectedCity] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [activeTab, setActiveTab] = useState('towhere'); // towhere / breaking
-  const [showMobileNotice, setShowMobileNotice] = useState(window.innerWidth < 768);
 
   useEffect(() => {
     const handleResize = () => {
@@ -74,70 +73,6 @@ export default function App() {
 
   return (
     <div style={{ width: '100%', height: '100%', margin: 0, padding: 0 }}>
-      {/* Mobile Notice Modal */}
-      {showMobileNotice && isMobile && (
-        <div style={{
-          position: 'fixed',
-          inset: 0,
-          zIndex: 200000,
-          backgroundColor: 'rgba(0, 0, 0, 0.8)',
-          backdropFilter: 'blur(20px)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '20px'
-        }}>
-          <div style={{
-            background: 'rgba(255, 255, 255, 0.05)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            borderRadius: '24px',
-            padding: '40px 30px',
-            textAlign: 'center',
-            maxWidth: '320px',
-            boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
-            animation: 'modalIn 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
-          }}>
-            <style>{`
-              @keyframes modalIn {
-                from { opacity: 0; transform: scale(0.9) translateY(20px); }
-                to { opacity: 1; transform: scale(1) translateY(0); }
-              }
-            `}</style>
-            <div style={{ fontSize: '48px', marginBottom: '20px' }}>📱</div>
-            <p style={{
-              color: 'rgba(255, 255, 255, 0.9)',
-              fontSize: '16px',
-              lineHeight: '1.6',
-              marginBottom: '30px',
-              fontWeight: '300'
-            }}>
-              手机端APP仍在开发中，<br />
-              当前版本只展示部分功能。<br />
-              想体验完整功能用电脑打开哦～
-            </p>
-            <button
-              onClick={() => setShowMobileNotice(false)}
-              style={{
-                background: 'linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%)',
-                border: 'none',
-                borderRadius: '50px',
-                padding: '12px 40px',
-                color: '#000',
-                fontSize: '15px',
-                fontWeight: '600',
-                cursor: 'pointer',
-                boxShadow: '0 10px 20px rgba(255, 154, 158, 0.3)',
-                transition: 'all 0.3s ease'
-              }}
-              onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
-              onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
-            >
-              我知道了
-            </button>
-          </div>
-        </div>
-      )}
-
       {/* 生日祝福入口页 */}
       {page === 'intro' && <BirthdayIntro goTo={goTo} />}
 
