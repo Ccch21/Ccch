@@ -1,166 +1,72 @@
-# ToWhere Online V1.0
+# 生日祝福 · 友情回忆站点
 
-> A private universe for travel memories, first moments, letters, and daily energy.
+> A birthday gift for my dear college friend — Hakuna Matata.
 
-![ToWhere Online V1.0](./docs/images/online-cover.jpg)
+一个基于 React 的互动记忆档案网站，把一起走过的城市、值得纪念的"第一次"变成可探索的 3D 空间。灵感来自 ToWhere Online（原作者的作品），在保留其核心交互骨架的基础上，重构为友情与生日祝福主题。
 
-ToWhere Online is an interactive memory archive built with React. It turns places, photos, words, and small daily records into a visual space that can be opened, explored, and revisited.
+## 两大板块
 
-It started as a personal gift, so the product shape is intentionally intimate: a starry entry, a living globe, city memories, FIRSTS timeline, letters, music, and an Energy Station for recording emotional gravity over time.
+### 一路向哪（3D 地球 + 城市）
 
-## Preview
+主视图是 Cesium 3D 地球，城市的记忆变成地球上的发光点。点击城市进入专属详情页：主图、描述、相册瀑布流、全屏看图。
 
-<table cellspacing="0" cellpadding="0" style="border-collapse: collapse; border: 0;">
-  <tr>
-    <td width="33%" style="padding: 0; border: 0;">
-      <img src="./docs/images/frame-13.jpg" alt="Star map and Energy Station preview" width="100%" style="display: block;" />
-    </td>
-    <td width="33%" style="padding: 0; border: 0;">
-      <img src="./docs/images/frame-14.jpg" alt="Admin city upload and city detail preview" width="100%" style="display: block;" />
-    </td>
-    <td width="33%" style="padding: 0; border: 0;">
-      <img src="./docs/images/frame-15.jpg" alt="FIRSTS timeline and mobile landing preview" width="100%" style="display: block;" />
-    </td>
-  </tr>
-  <tr>
-    <td width="33%" style="padding: 0; border: 0;">
-      <img src="./docs/images/frame-14.jpg" alt="Admin city upload and city detail preview" width="100%" style="display: block;" />
-    </td>
-    <td width="33%" style="padding: 0; border: 0;">
-      <img src="./docs/images/frame-15.jpg" alt="FIRSTS timeline and mobile landing preview" width="100%" style="display: block;" />
-    </td>
-    <td width="33%" style="padding: 0; border: 0;">
-      <img src="./docs/images/frame-16.jpg" alt="Earth view and star map preview" width="100%" style="display: block;" />
-    </td>
-  </tr>
-</table>
+### 初时（重要时刻时间线）
 
-## What It Does
+记录值得纪念的第一次：第一次见面、第一次一起过生日、第一次旅行……支持日期、文字、分类 emoji 与多图上传（拍照或本地选图）。
 
-### ToWhere Globe
+## 入口
 
-The main travel view places memories on a globe. Cities become points in space, and each place can lead into a dedicated detail page with photos and story fragments.
+- **生日入口页**：开场 "Hakuna Matata" 花体祝福，点击进入主站
+- **结尾页**：友情向祝福收尾
 
-### FIRSTS Timeline
+## 技术栈
 
-FIRSTS records important first moments: the first trip, the first small ritual, the first sentence worth saving. Records can include dates, text, categories, and images.
-
-### Memory Universe
-
-The keyword and particle experience turns relationship keywords into an interactive star field. It is less like a dashboard and more like a constellation of shared context.
-
-### Letters
-
-Letters are kept as a quieter written archive. They sit beside the visual travel records and make the project feel less like a gallery and more like a time capsule.
-
-### Energy Station
-
-Energy Station records daily status for different users and visualizes the trend with charts and a calendar history.
-
-### City Admin Tools
-
-The admin panel supports city data and image management through Supabase and GitHub-based storage utilities.
-
-## Tech Stack
-
-- React 18
-- Vite 5
-- Three.js
-- React Three Fiber
-- Cesium / Resium
-- Supabase
+- React 18 + Vite 5
+- Cesium / Resium（3D 地球）
+- Supabase（数据库 + Storage）
+- GitHub Contents API（城市图片仓库管理）
 - Framer Motion
-- Recharts
 
-## Getting Started
-
-Install dependencies:
+## 开始使用
 
 ```bash
 npm install
+npm run dev        # 本地开发
+npm run build      # 生产构建
+npm run preview    # 预览构建产物
 ```
 
-Create a `.env` file in the project root:
+### 环境变量（.env）
 
 ```env
 VITE_SUPABASE_URL=your_supabase_project_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 
-VITE_GITHUB_OWNER=your_github_username_or_org
-VITE_GITHUB_REPO=your_repo_name
+VITE_GITHUB_OWNER=Ccch21
+VITE_GITHUB_REPO=Ccch
 VITE_GITHUB_BRANCH=main
 ```
 
-Run the development server:
+### Supabase 设置
 
-```bash
-npm run dev
-```
+1. 在 [supabase.com](https://supabase.com) 新建项目
+2. 在 SQL Editor 中运行 [`supabase-schema.sql`](./supabase-schema.sql) 创建 4 张表
+3. 创建 Storage Bucket：`firsts-images`（Public，用于"初时"图片上传）
+4. 城市图片由管理员在站点内上传，自动写入 GitHub 仓库（`public/images/cities/`）
 
-Build for production:
+### 部署（GitHub Pages）
 
-```bash
-npm run build
-```
+项目已配置 GitHub Actions（`.github/workflows/deploy.yml`），推送到 `main` 分支自动构建部署。
 
-Preview the production build:
+仓库 Settings → Secrets and variables → Actions 中配置：
 
-```bash
-npm run preview
-```
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_ANON_KEY`
 
-## Supabase Setup
+## 管理员入口
 
-Run the SQL in [`supabase-schema.sql`](./supabase-schema.sql) inside the Supabase SQL Editor.
+在地球页面连续点击标题 3 次，可打开管理面板（地点管理 / 邀请码配置）。
 
-If you use image uploads for FIRSTS, create a Supabase Storage bucket named:
+## 隐私说明
 
-```txt
-firsts-images
-```
-
-## Project Structure
-
-```txt
-src/
-  components/          Shared UI and interactive modules
-  components/admin/    City upload and GitHub image management
-  components/energy/   Energy Station panels and charts
-  components/firsts/   FIRSTS timeline and image capture
-  components/letters/  Letter archive
-  context/             Shared state providers
-  lib/                 Supabase, GitHub, and storage helpers
-  pages/               Main application pages
-
-public/
-  cesium/              Cesium runtime assets
-  images/              Static images and city media
-  music/               Background music
-  video/               Intro and travel videos
-
-docs/images/           README preview images
-```
-
-## Data Sources
-
-ToWhere Online uses a few storage layers:
-
-- Supabase Database for city data, FIRSTS records, letters, and dynamic configuration
-- Supabase Storage for uploaded FIRSTS images
-- GitHub Contents API for repository-based city image management
-- LocalStorage for client-side admin token state and local fallbacks
-
-Some private photos, music, videos, and records may be intentionally excluded or replaced before publishing.
-
-## Notes
-
-This is a personal creative project rather than a generic SaaS template.
-
-- Desktop is the primary experience.
-- Mobile currently presents a partial version of the full interaction.
-- Data models are optimized for a private memory archive.
-- Public reuse should replace the personal media and records with your own content.
-
-## License
-
-This project is shared as a personal creative work. Please do not reuse private images, text, music, videos, or personal data without permission.
+本站点包含私人照片、文字与音乐。请勿未经许可转载或复用其中任何个人内容。

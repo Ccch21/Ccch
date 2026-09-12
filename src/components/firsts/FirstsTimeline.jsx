@@ -16,8 +16,8 @@ const EMOJI_MAP = {
     '吃': '🍴', '餐厅': '🍴', '饭': '🍳', '菜': '🥘', '厨': '🍳', '宵夜': '🌃', '米其林': '🍴',
     '唱K': '🎤', '唱': '🎤', '音乐': '🎵', 'KTV': '🎤',
     '摩天轮': '🎡', '乐园': '🎡',
-    '花': '💐', '玫瑰': '🌹',
-    '表白': '💖', '爱': '❤️', '吻': '💋', '亲': '💋',
+    '花': '💐',
+    '爱': '💛',
     '化妆': '💄', '面膜': '💄', '涂': '💄',
     '日出': '🌅', '日落': '🌇',
     '飞机': '✈️', '机场': '✈️', '飞行': '✈️',
@@ -39,10 +39,10 @@ const EMOJI_MAP = {
     '路': '🛣️', '旅': '🗺️',
 };
 
-const DEFAULT_EMOJIS = ['💕', '✨', '🌟', '🎯', '🎈', '💫', '🌸', '🦋', '🎀', '💖', '🌙', '⭐', '🎊', '🍀', '🌈'];
+const DEFAULT_EMOJIS = ['🎂', '✨', '🌟', '🎯', '🎈', '💫', '🌸', '🦋', '🎓', '🎉', '🌙', '⭐', '🎊', '🍀', '🌈'];
 
 function getEmoji(text) {
-    if (!text) return '💕';
+    if (!text) return '🌟';
 
     // Check keywords (longer first to match more specific phrases)
     const keywords = Object.keys(EMOJI_MAP).sort((a, b) => b.length - a.length);

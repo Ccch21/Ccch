@@ -227,3 +227,14 @@ button:active {
   background-color: currentColor;
   border-radius: 1px;
 }
+/* 花体字体（Hakuna Matata 寄语使用） */
+@font-face {
+  font-family: 'Great Vibes';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./assets/fonts/great-vibes.woff2') format('woff2');
+}
+
+.font-script {
+  font-family: 'Great Vibes', 'Segoe Script', 'Brush Script MT', cursive;
+}

@@ -4,7 +4,7 @@ import { resolve } from 'path';
 
 export default defineConfig(({ command }) => {
   const isVercel = process.env.VERCEL === '1' || process.env.VERCEL === 'true';
-  const basePrefix = (command === 'build' && !isVercel) ? '/ToWhereOnline/' : '/';
+  const basePrefix = (command === 'build' && !isVercel) ? '/Ccch/' : '/';
 
   return {
     plugins: [react()],

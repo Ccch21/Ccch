@@ -22,17 +22,16 @@ export default function PinkAnimationHome({ goTo, goToCity, isCityMode = false, 
     const [carouselActive, setCarouselActive] = useState(true);
     const [showSidebar, setShowSidebar] = useState(false);
     const [showInfoModal, setShowInfoModal] = useState(false);
-    const [logContent, setLogContent] = useState('');
-    const DEFAULT_LOG = '· 5.28 决定要给阿肴做一个独一无二的生日礼物\n· 6.28 在台湾旅行之后，开始有思路\n· 7.13 正式开始开发 《一路向哪？》 网站\n· 8.28 《一路向哪？》V1.0 上线啦！';
-    const [logSaving, setLogSaving] = useState(false);
-    const [logSaved, setLogSaved] = useState(false);
     const [cities, setCities] = useState([]);
     const [cityPoints, setCityPoints] = useState([]);
-    const saveTimerRef = useRef(null);
     const carouselTimerRef = useRef(null);
     const carouselIndexRef = useRef(0);
     const inactivityTimerRef = useRef(null);
     const carouselKilledByClick = useRef(false); // True if user clicked a dot (permanent stop until page reload)
+
+    // 生日寄语（管理员可在 InfoModal 中查看；Hakuna Matata 使用花体）
+    const BIRTHDAY_MESSAGE = 'Hakuna Matata';
+    const BIRTHDAY_WISH = '愿无忧无虑，万事胜意。\n感谢那些一起走过的时光，\n生日快乐，我的老朋友。';
 
     // ========= Admin Easter Egg =========
     const [showAdmin, setShowAdmin] = useState(false);
@@ -41,9 +40,9 @@ export default function PinkAnimationHome({ goTo, goToCity, isCityMode = false, 
 
     const handleTitleClick = useCallback(() => {
         easterEggClickCount.current += 1;
-        console.log(`Title clicked ${easterEggClickCount.current}/5`);
+        console.log(`Title clicked ${easterEggClickCount.current}/3`);
         if (easterEggTimer.current) clearTimeout(easterEggTimer.current);
-        if (easterEggClickCount.current >= 5) {
+        if (easterEggClickCount.current >= 3) {
             console.log('Admin triggered!');
             easterEggClickCount.current = 0;
             setShowAdmin(true);
@@ -186,48 +185,6 @@ export default function PinkAnimationHome({ goTo, goToCity, isCityMode = false, 
         startInactivityTimer();
     }, [stopCarousel, startInactivityTimer]);
 
-    // ========= Supabase Log =========
-    useEffect(() => {
-        const loadLog = async () => {
-            try {
-                const { data, error } = await supabase
-                    .from('towhere_logs')
-                    .select('content')
-                    .order('id', { ascending: true })
-                    .limit(1)
-                    .single();
-                if (data && !error && data.content) {
-                    setLogContent(data.content);
-                } else {
-                    console.log('No log data or error, using default');
-                    setLogContent(DEFAULT_LOG);
-                }
-            } catch (e) {
-                console.log('Log load failed:', e.message);
-                setLogContent(DEFAULT_LOG);
-            }
-        };
-        loadLog();
-    }, []);
-
-    const handleLogChange = (value) => {
-        setLogContent(value);
-        setLogSaved(false);
-        if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
-        saveTimerRef.current = setTimeout(async () => {
-            setLogSaving(true);
-            try {
-                const { error } = await supabase
-                    .from('towhere_logs')
-                    .upsert({ id: 1, content: value, updated_at: new Date().toISOString() });
-                if (!error) setLogSaved(true);
-            } catch (e) {
-                console.error('Log save failed:', e);
-            }
-            setLogSaving(false);
-        }, 1000);
-    };
-
     const sidebarWidth = 250;
 
     return (
@@ -237,6 +194,26 @@ export default function PinkAnimationHome({ goTo, goToCity, isCityMode = false, 
                 position: 'relative', background: 'linear-gradient(135deg, #0a0f1a 0%, #0d1525 40%, #111d35 100%)', color: 'white'
             }}
         >
+            {/* 站名标题（管理员彩蛋入口：连续点击 3 次） */}
+            <div
+                onClick={handleTitleClick}
+                style={{
+                    position: 'absolute',
+                    top: '18px',
+                    left: '24px',
+                    zIndex: 100001,
+                    color: 'rgba(255,255,255,0.4)',
+                    fontSize: '1rem',
+                    letterSpacing: '8px',
+                    fontWeight: 300,
+                    cursor: 'default',
+                    userSelect: 'none',
+                    textShadow: '0 0 12px rgba(255,255,255,0.15)'
+                }}
+            >
+                一路向哪？
+            </div>
+
             {/* Globe */}
             <CesiumGlobe
                 goToCity={goToCity}
@@ -382,7 +359,7 @@ export default function PinkAnimationHome({ goTo, goToCity, isCityMode = false, 
                 </div>
             </div>
 
-            {/* Info Modal */}
+            {/* Info Modal: 生日寄语 */}
             <AnimatePresence>
                 {showInfoModal && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -415,21 +392,24 @@ export default function PinkAnimationHome({ goTo, goToCity, isCityMode = false, 
                                 <video src={`${import.meta.env.BASE_URL}video/all.mp4`} autoPlay loop muted controls playsInline
                                     style={{ width: '100%', height: '100%', display: 'block', outline: 'none', objectFit: 'cover' }} />
                             </div>
-                            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: '10px' }}>
-                                <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '8px' }}>
-                                    <span style={{ fontSize: '0.75rem', color: logSaving ? '#ffd700' : logSaved ? '#4caf50' : 'transparent' }}>
-                                        {logSaving ? '保存中...' : logSaved ? '✓ 已保存' : '.'}
-                                    </span>
+                            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: '10px' }}>
+                                <div className="font-script" style={{
+                                    fontSize: 'clamp(3rem, 6vw, 5rem)',
+                                    color: '#F6BEC8',
+                                    lineHeight: 1.15,
+                                    textShadow: '0 0 30px rgba(246,190,200,0.4)',
+                                    marginBottom: '24px'
+                                }}>
+                                    {BIRTHDAY_MESSAGE}
                                 </div>
-                                <textarea value={logContent} onChange={(e) => handleLogChange(e.target.value)}
-                                    style={{
-                                        flex: 1, width: '100%', background: 'transparent',
-                                        border: 'none', borderRadius: '0',
-                                        color: 'rgba(255,255,255,0.9)', padding: '0', fontSize: '1.05rem',
-                                        lineHeight: '2.2', resize: 'none', outline: 'none',
-                                        fontFamily: 'inherit', boxSizing: 'border-box'
-                                    }}
-                                    placeholder="在这里记录网站开发日志..." />
+                                <div style={{
+                                    fontSize: '1.05rem',
+                                    lineHeight: '2.2',
+                                    color: 'rgba(255,255,255,0.9)',
+                                    whiteSpace: 'pre-line'
+                                }}>
+                                    {BIRTHDAY_WISH}
+                                </div>
                             </div>
                         </div>
                     </motion.div>

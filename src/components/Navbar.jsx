@@ -3,7 +3,6 @@ import '../style.css'; // Ensure we can style it
 
 const Navbar = ({ activeTab, setTab, isMobile }) => {
     const allTabs = [
-        { id: 'keywords', label: '新年关键词' },
         { id: 'towhere', label: '一路向哪' },
         { id: 'breaking', label: '初时' },
     ];
