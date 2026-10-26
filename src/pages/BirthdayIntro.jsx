@@ -50,7 +50,7 @@ export default function BirthdayIntro({ goTo }) {
         <motion.button
           whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(246, 190, 200, 0.35)' }}
           whileTap={{ scale: 0.95 }}
-          onClick={() => goTo('home')}
+          onClick={() => { window.dispatchEvent(new Event('start-music')); goTo('home'); }}
           style={{
             padding: '16px 44px',
             fontSize: '1.05rem',

@@ -83,6 +83,23 @@ const MusicPlayer = () => {
         return () => audioEl.removeEventListener('ended', handleEnded);
     }, []);
 
+    // 全局播放：入口页点击「进入回忆」时触发
+    useEffect(() => {
+        const handleGlobalPlay = () => {
+            if (!audioRef.current) return;
+            initializeAudioCtx();
+            if (audioRef.current.paused) {
+                const playPromise = audioRef.current.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(e => console.error('Audio play failed:', e));
+                }
+                setIsPlaying(true);
+            }
+        };
+        window.addEventListener('start-music', handleGlobalPlay);
+        return () => window.removeEventListener('start-music', handleGlobalPlay);
+    }, []);
+
     // Handle TRACK switching
     useEffect(() => {
         if (audioRef.current) {
