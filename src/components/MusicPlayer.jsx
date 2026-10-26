@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './MusicPlayer.css';
 
+// 背景音乐：《陪你度过漫长岁月》（单曲循环）
 const TRACKS = [
-    `${import.meta.env.BASE_URL}music/date.mp3`,
-    `${import.meta.env.BASE_URL}music/alpha.mp3`,
-    `${import.meta.env.BASE_URL}music/river.mp3`,
-    `${import.meta.env.BASE_URL}music/between_worlds.mp3`
+    `${import.meta.env.BASE_URL}music/peini.mp3`
 ];
 
 // Final parameters provided by the user
